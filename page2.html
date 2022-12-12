@@ -11,6 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>page2</title>
 </head>
 <body>
@@ -21,6 +22,7 @@
         <div class="row mt-2">
             <div class="col-12">
                 <input class="form-control" type="text" placeholder="HSC " id="hscInstitutionName">
+                <div id="hscnameError" class="text-danger"></div>
             </div>
         </div>
         <div class="row mt-2">
@@ -28,71 +30,197 @@
         </div>
         <div class="row mt-2">
             <div class="col-12">
-                <select class="form-select" aria-label="Default select example" id="hscBoard">
-                    <option selected>Open this select menu</option>
+                <select class="form-select" aria-label="Default select example" value="" id="hscBoard">
+                    <option selected value="">Open this select menu</option>
                     <option value="1">CBSE</option>
                     <option value="2">ICSC</option>
                     <option value="3">State board</option>
                   </select>
+                  <div id="hscbordError" class="text-danger"></div>
             </div>
         </div>
         <div class="row mt-2">
             <div class="col"> <b>HSC percentage</b> <span class="text-danger">*</span></div>
         </div>
         <div class="col-12">
-                <input class="form-control" type="text" placeholder="percentage " id="hscPercentage">
+                <input class="form-control" type="number" placeholder="percentage " id="hscPercentage">
+                <div id="hscpercentagerror" class="text-danger"></div>
         </div>
         <div class="row mt-2">
             <div class="col"><b>SSC Institution name </b><span class="text-danger">*</span></div>
         </div>
         <div class="col-12">
             <input class="form-control" type="text" placeholder="SSC institution name " id="sscInstitutionName">
+            <div id="sscnameError" class="text-danger"></div>
         </div>
         <div class="row mt-2">
             <div class="col"><b>SSC Board </b><span class="text-red">*</span></div>
         </div>
         <div class="col-12">
             <select class="form-select" aria-label="Default select example" id="sscBoard">
-                <option selected>Open this select menu</option>
+                <option selected value="">Open this select menu</option>
                 <option value="1">CBSE</option>
                 <option value="2">ICSC</option>
                 <option value="3">State board</option>
               </select>
+<div id="sscError" class="text-danger"></div>
         </div>
         <div class="row mt-2">
             <div class="col"><b>Score in SSC percentage</b> <span class="text-danger">*</span></div>
         </div>
         <div class="col-12">
-            <input class="form-control" type="text" placeholder="SSC in percentage " id="scoreInSscPercentage">
+            <input class="form-control" type="text" placeholder="SSC in percentage " id="sscPercentage">
+            <div id="sscpercentagerror" class="text-danger"></div>
         </div>
         <div class="row mt-2">
             <div class="col"><b>Currently pursuing </b><span class="text-danger">*</span></div>
         </div>
         <div class="col-12">
             <input class="form-control" type="text" placeholder="Currently pursuing " id="currentlyPursuing">
+            <div id="currentlystudynameError" class="text-danger"></div>
         </div>
         <div class="row mt-2">
             <div class="col"><b>Current educational institution name </b><span class="text-danger">*</span></div>
         </div>
         <div class="col-12">
-            <input class="form-control" type="text" placeholder="Current educational institution name " id="CurrentEducationalInstitutionName ">
+            <input class="form-control" type="text" placeholder="Current educational institution name " id="currentEducationalInstitutionName" value="">
+            <div id="currentlyinstitutionnameError" class="text-danger"></div>
         </div>
         <div class="row mt-2">
             <div class="col"><b>Overall percentage </b><span class="text-danger">*</span></div>
         </div>
         <div class="col-12">
             <input class="form-control" type="text" placeholder="Overall percentage" id="overallPercentage">
+            <div id="overallpercentageError" class="text-danger"></div>
         </div>
         <div class="row mt-2">
             <div class="col"><b>Current backlogs if any </b><span class="text-danger">*</span></div>
         </div>
         <div >
-            <input  type="radio" >yes
+            <input  type="radio" name="r">yes
         </div>
         <div >
-            <input  type="radio" >no
+            <input  type="radio" name="r">no
+            <div id="radioerror" class="text-danger"></div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-4 offset-6">
+                <button type="button" class="btn btn-primary" onclick="validate1()">submit</button>
+            </div>
         </div>
     </div>
 </body>
+<script >
+    document.getElementById('hscnameError').innerHTML="";
+    document.getElementById("hscpercentagerror").innerHTML="";
+    document.getElementById('sscnameError').innerHTML="";
+    document.getElementById("sscpercentagerror").innerHTML="";
+    document.getElementById('currentlystudynameError').innerHTML="";
+    document.getElementById('currentlyinstitutionnameError').innerHTML="";
+    document.getElementById('overallpercentageError').innerHTML=""
+    $('#hscbordError').text("");
+    $('#sscError').text("")
+let status=true;
+    
+    function validate1(){
+        //second page js
+  let hscname= document.getElementById('hscInstitutionName').value;
+  if(!hscname){
+   document.getElementById('hscnameError').innerHTML="Please fill the required field"
+   status=false
+  }
+  else if(/[^a-zA-Z]/.test(hscname)){
+   document.getElementById('hscnameError').innerHTML="Special character and numbers are not allowed"
+   status=false
+  }
+
+  let hscpercentage= document.getElementById("hscPercentage").value;
+  if(!hscpercentage){
+    document.getElementById("hscpercentagerror").innerHTML="Please fill the required field"
+    status=false
+  }
+  else if(/[^0-9.]/.test(hscpercentage)){
+    document.getElementById("hscpercentagerror").innerHTML="Special character and alphabat are not allowed"
+    status=false
+  }
+
+  let sscname= document.getElementById('sscInstitutionName').value;
+  if(!sscname){
+   document.getElementById('sscnameError').innerHTML="Please fill the required field"
+   status=false
+  }
+  else if(/[^a-zA-Z]/.test(sscname)){
+   document.getElementById('sscnameError').innerHTML="Special character and numbers are not allowed"
+   status=false
+  }
+
+  let sscpercentage= document.getElementById("sscPercentage").value;
+  if(!sscpercentage){
+    document.getElementById("sscpercentagerror").innerHTML="Please fill the required field"
+    status=false
+  }
+  else if(/[^0-9.]/.test(sscpercentage)){
+    document.getElementById("sscpercentagerror").innerHTML="Special character and alphabat are not allowed"
+    status=false
+  }
+
+  let currentlystudyname= document.getElementById('currentlyPursuing').value;
+  if(!currentlystudyname){
+   document.getElementById('currentlystudynameError').innerHTML="Please fill the required field"
+   status=false
+  }
+  else if(/[^a-zA-Z]/.test(currentlystudyname)){
+   document.getElementById('currentlystudynameError').innerHTML="Special character and numbers are not allowed"
+   status=false
+  }
+
+  let currentlyinstitutionname= document.getElementById('currentEducationalInstitutionName').value;
+  if(!currentlyinstitutionname){
+   document.getElementById('currentlyinstitutionnameError').innerHTML="Please fill the required field"
+   status=false
+  }
+  else if(/[^a-zA-Z]/.test(currentlyinstitutionname)){
+   document.getElementById('currentlyinstitutionnameError').innerHTML="Special character and numbers are not allowed"
+   status=false
+  }
+
+
+  let percentage1= document.getElementById('overallPercentage').value;
+  if(!percentage1){
+   document.getElementById('overallpercentageError').innerHTML="Please fill the required field"
+   status=false
+  }
+
+
+
+  if(document.querySelectorAll('input[type="radio"]:checked').length === 0){
+    document.getElementById('radioerror').innerHTML="Select required fields";
+    status=false
+}
+
+if($('#hscBoard option:selected').val()==''){
+$('#hscbordError').text("Please fil the required field");
+status=false
+}
+
+if($('#sscBoard option:selected').val()==''){
+$('#sscError').text("please fill the required field");
+status=false
+}
+
+
+if(status){
+    window.alert("submitted succesfully")
+    window.location.replace("page3.html");
+}
+else{
+    window.alert("failed to submit the page")
+}
+
+  
+
+
+    }
+</script>
 
 </html>
